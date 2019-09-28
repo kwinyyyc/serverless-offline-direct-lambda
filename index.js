@@ -16,7 +16,6 @@ class ServerlessPlugin {
     let location = '';
     try {
       location = this.serverless.service.custom['serverless-offline'].location;
-      // this.serverless.service.custom['serverless-offline'].location = '';
     } catch (_) { }
 
     this.serverless.cli.log('Running Serverless Offline with direct lambda support');
