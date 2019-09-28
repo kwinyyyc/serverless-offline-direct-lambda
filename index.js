@@ -1,7 +1,6 @@
 'use strict';
-
-const packagePath = 'node_modules/serverless-offline-direct-lambda';
-const handlerPath = `proxy.js`;
+const handlerPath = '../../node_modules/serverless-offline-direct-lambda/proxy.handler';
+const handler = 'proxy.js';
 
 class ServerlessPlugin {
   constructor(serverless, options) {
@@ -17,7 +16,6 @@ class ServerlessPlugin {
     let location = '';
     try {
       location = this.serverless.service.custom['serverless-offline'].location;
-      this.serverless.service.custom['serverless-offline'].location = '';
     } catch (_) { }
 
     this.serverless.cli.log('Running Serverless Offline with direct lambda support');
@@ -41,7 +39,7 @@ const addProxies = (functionsObject, location) => {
 
 const functionProxy = (functionBeingProxied, location) => ({
   name: `${functionBeingProxied.name}_proxy`,
-  handler: `${packagePath}/proxy.handler`,
+  handler: handlerPath,
   environment: functionBeingProxied.environment,
   events: [
     {
@@ -67,7 +65,7 @@ const functionProxy = (functionBeingProxied, location) => ({
     }
   ],
   package: {
-    include: [handlerPath],
+    include: [handler]
   }
 });
 
